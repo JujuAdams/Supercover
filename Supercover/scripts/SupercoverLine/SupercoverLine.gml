@@ -8,82 +8,89 @@
 
 function SupercoverLine(_x1, _y1, _x2, _y2, _array = [])
 {
-    var _xFrac = frac(_x1);
-    var _yFrac = frac(_y1);
+    var _xDelta = _x2 - _x1;
+    var _yDelta = _y2 - _y1;
+    var _xDeltaAbs = abs(_xDelta);
+    var _yDeltaAbs = abs(_yDelta);
+    var _xSign = sign(_xDelta);
+    var _ySign = sign(_yDelta);
     
-    var _x = floor(_x1);
-    var _y = floor(_y1);
-    
-    var _dx = _x2 - _x1;
-    var _dy = _y2 - _y1;
-    var _nx = abs(_dx);
-    var _ny = abs(_dy);
-    var _xSign = sign(_dx);
-    var _ySign = sign(_dy);
+    var _x2Grid = floor(_x2);
+    var _y2Grid = floor(_y2);
     
     //We always have the origin cell
-    array_push(_array, _x, _y);
+    var _xWrite = floor(_x1);
+    var _yWrite = floor(_y1);
+    array_push(_array, _xWrite, _yWrite);
     
     //Handle degenerate axis-aligned lines
-    if (_dx == 0)
+    if (_xWrite == _x2Grid)
     {
-        if (_dy == 0) return _array;
+        if (_yWrite == _y2Grid) return _array;
         
-        repeat(_ny)
+        repeat(round(_yDeltaAbs))
         {
-            _y += _ySign;
-            array_push(_array, _x, _y);
+            _yWrite += _ySign;
+            array_push(_array, _xWrite, _yWrite);
         }
         
         return _array;
     }
-    else if (_dy == 0)
+    else if (_yWrite == _y2Grid)
     {
-        repeat(_nx)
+        repeat(round(_xDeltaAbs))
         {
-            _x += _xSign;
-            array_push(_array, _x, _y);
+            _xWrite += _xSign;
+            array_push(_array, _xWrite, _yWrite);
         }
         
         return _array;
     }
     
     //Supercover algo
-    var _xAbs = _xFrac;
-    var _yAbs = _yFrac;
-    var _count = _nx + _ny;
-    while(_count > 0)
+    
+    var _xWalk = frac(abs(_x1));
+    var _yWalk = frac(abs(_y1));
+    
+    if (_xDelta < 0)
     {
-        var _xGrad = (1 - _xAbs) / _nx;
-        var _yGrad = (1 - _yAbs) / _ny;
+        _xWalk = 1 - _xWalk;
+    }
+    
+    if (_yDelta < 0)
+    {
+        _yWalk = 1 - _yWalk;
+    }
+    
+    while((_xWrite != _x2Grid) || (_yWrite != _y2Grid))
+    {
+        var _tX = (1 - _xWalk) / _xDeltaAbs;
+        var _tY = (1 - _yWalk) / _yDeltaAbs;
         
-        if (_xGrad < _yGrad)
+        if (_tX < _tY)
         {
-            _yAbs += _ny*_xGrad;
-            _xAbs  = 0;
-            _x += _xSign;
+            _yWalk += _tX*_yDeltaAbs;
+            _xWalk  = 0;
+            _xWrite += _xSign;
         }
-        else if (_xGrad == _yGrad)
+        else if (_tY < _tX)
         {
-            array_push(_array, _x + _xSign, _y);
-            array_push(_array, _x, _y + _ySign);
-            
-            _xAbs = 0
-            _yAbs = 0;
-            _x += _xSign;
-            _y += _ySign;
-            
-            --_count;
+            _xWalk += _tY*_xDeltaAbs;
+            _yWalk  = 0;
+            _yWrite += _ySign;
         }
         else
         {
-            _xAbs += _nx*_yGrad;
-            _yAbs  = 0;
-            _y += _ySign;
+            array_push(_array, _xWrite + _xSign, _yWrite);
+            array_push(_array, _xWrite, _yWrite + _ySign);
+            
+            _xWalk = 0;
+            _yWalk = 0;
+            _xWrite += _xSign;
+            _yWrite += _ySign;
         }
         
-        array_push(_array, _x, _y);
-        --_count;
+        array_push(_array, _xWrite, _yWrite);
     }
     
     return _array;
