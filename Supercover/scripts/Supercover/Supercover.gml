@@ -6,7 +6,7 @@
 /// @param y2
 /// @param [array]
 
-function SupercoverLine(_x1, _y1, _x2, _y2, _array = [])
+function Supercover(_x1, _y1, _x2, _y2, _array = [])
 {
     var _xDelta = _x2 - _x1;
     var _yDelta = _y2 - _y1;

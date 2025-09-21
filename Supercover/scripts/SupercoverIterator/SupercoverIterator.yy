@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"SupercoverLine",
+  "%Name":"SupercoverIterator",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"SupercoverLine",
+  "name":"SupercoverIterator",
   "parent":{
     "name":"Supercover",
     "path":"Supercover.yyp",

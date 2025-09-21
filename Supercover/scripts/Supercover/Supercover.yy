@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"SupercoverLineAlt",
+  "%Name":"Supercover",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"SupercoverLineAlt",
+  "name":"Supercover",
   "parent":{
     "name":"Supercover",
     "path":"Supercover.yyp",
