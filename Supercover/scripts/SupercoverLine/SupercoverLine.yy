@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"SupercoverLine",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SupercoverLine",
+  "parent":{
+    "name":"Supercover",
+    "path":"Supercover.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

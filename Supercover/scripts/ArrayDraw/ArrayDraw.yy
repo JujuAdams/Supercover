@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ArrayDraw",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ArrayDraw",
+  "parent":{
+    "name":"Supercover",
+    "path":"Supercover.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
